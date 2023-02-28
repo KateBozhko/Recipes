@@ -1,23 +1,24 @@
 
-
 function RecepieComponent({label, image, calories, ingredients}) {
     return(
-    <div>
-    <div className="container">
-<h2>{label}</h2>
-    </div>
-    <div className="container">
-    <img className="tasty" src={image} alt="food"/>
-</div>
-<ul>
-    {ingredients.map((ingredient, index) => (
-        <li key={index}>{ingredient}</li>
-    ))}
-</ul>
-<div className="container">
-<p className="par">{calories.toFixed()} calories</p>
-</div>
-    </div>
+        <div>
+        <div className="container">
+            <h2>{label}</h2>
+            </div>
+            <div className="container">
+            <img className="tasty" src={image} alt="food"/>
+            </div>
+            <ul className="list">
+                {ingredients.map((element,index) => (
+                    <li key={index}>
+                        <img src="https://img.freepik.com/free-vector/green-eco-loop-leaf-check-mark_78370-658.jpg?w=740&t=st=1677316023~exp=1677316623~hmac=65cfc0081ce55c62e7cfbe102ec5f6ba99013901bdb2bd546869af591980009d" width="50px"/>{element}</li>
+                ))}
+            </ul>
+            <div className="container">
+            <p className="par">{calories.toFixed()} calories</p>
+            </div>
+        </div>
+        
     )
 }
 export default RecepieComponent;

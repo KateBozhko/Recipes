@@ -1,63 +1,82 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import video from "./food.mp4"
+import {useEffect, useState} from "react";
+import video from "./food.mp4";
 import RecepieComponent from "./RecepieComponent";
+import "./App.css"
+
 
 function App() {
+  const [search, setSearch] = useState("");
+const [myReipes, setMyrecepies] = useState([]);
+const [word, setWord] = useState('avocado')
 
-const MY_ID = "6009d7af";
-const MY_KEY = "eb32e65887cb0eba2f6b754bcb4fae8b";
+  const MY_ID = "6009d7af";
+  const MY_KEY = "eb32e65887cb0eba2f6b754bcb4fae8b";
 
-const [searchRecipe, setSearchRecipe] = useState("");
-const [recipe, setRecipe] = useState([]);
-const [wordSubmitted, setWordSubmitted] = useState('avocado')
 
 useEffect(() => {
-  getResult();
-}, [wordSubmitted])
-
-const getResult = async () => {
-  const response = await fetch(`https://api.edamam.com/search?q=${wordSubmitted}&app_id=${MY_ID}&app_key=${MY_KEY}`);
-  const data = await response.json();
-  setRecipe(data.hits)
+  getRecepi();
+  
+}, [word])
+const getRecepi = async () => {
+const responce = await fetch(`https://api.edamam.com/search?q=${word}&app_id=${MY_ID}&app_key=${MY_KEY}`);
+const data = await responce.json();
+console.log(data.hits)
+setMyrecepies(data.hits)
 }
-
-
-const changeRecipe = (e) => {
-setSearchRecipe(e.target.value)
+const changeRecepie = (e) => {
+  setSearch(e.target.value)
 }
-const finalSearch = (e) => {
+ const finalSearch = (e) => {
 e.preventDefault();
-setWordSubmitted(searchRecipe)
-}
-
-
-return(
-  <div className="App">
-    <div className="container">
-      <video autoPlay muted loop>
-        <source src={video} type="video/mp4"/>
-      </video>
-      <h1> Find a recipe</h1>
-    </div>
+setWord(search)
+ }
+  return(
+    <div className="App">
+      <div className="container">
+<video autoPlay muted loop><source src={video} type="video/mp4"/></video>
+<h1>Find a Recipe</h1>
+</div>
 
 <div className="container">
   <form onSubmit={finalSearch}>
-    <input type="text" placeholder="Enter....." value={searchRecipe} onChange={changeRecipe}/>
-    
-<button>
-  <img src="https://icons8.com/preloaders/preloaders/165/Searching.gif" width="70px" alt="search"/>
-</button>
-</form>
-
-{recipe.map((element, index) => (
-  <RecepieComponent key={index} label={element.recipe.label}
-  image={element.recipe.image}
-  calories={element.recipe.calories}
-  ingredients={element.recipe.ingredientlines}/>
-))}
+    <input className="search" type="text" placeholder="Search..." value={search} onChange={changeRecepie}></input>
+  </form>
+</div>
+  <div className="container">
+    <button><img src="https://icons8.com/preloaders/preloaders/165/Searching.gif" width="50px" alt="search"/></button>
+  </div>
+  <div>
+  {myReipes.map((element, index) => (
+    <RecepieComponent key={index}
+    label={element.recipe.label}
+    image={element.recipe.image}
+    calories={element.recipe.calories}
+    ingredients={element.recipe.ingredientLines}/>
+  ))}
 </div>
   </div>
-)
+  );
 }
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

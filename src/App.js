@@ -15,7 +15,6 @@ getRecepi();
 const getRecepi = async () => {
 const responce = await fetch(`https://api.edamam.com/search?q=${word}&app_id=${MY_ID}&app_key=${MY_KEY}`);
 const data = await responce.json();
-console.log(data.hits)
 setMyrecepies(data.hits)
 }
 const changeRecepie = (e) => {

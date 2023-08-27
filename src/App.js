@@ -9,15 +9,21 @@ const [myReipes, setMyrecepies] = useState([]);
 const [word, setWord] = useState('avocado')
 const MY_ID = "6009d7af";
 const MY_KEY = "eb32e65887cb0eba2f6b754bcb4fae8b";
+
+
+
 useEffect(() => {
-getRecepi();
-}, [word])
+
 const getRecepi = async () => {
 const responce = await fetch(`https://api.edamam.com/search?q=${word}&app_id=${MY_ID}&app_key=${MY_KEY}`);
 const data = await responce.json();
-console.log(data.hits)
 setMyrecepies(data.hits)
 }
+getRecepi()
+}, [word])
+
+
+
 const changeRecepie = (e) => {
 setSearch(e.target.value)
 }
